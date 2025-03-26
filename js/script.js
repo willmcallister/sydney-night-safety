@@ -32,6 +32,9 @@ sMap.addControl(new maplibregl.NavigationControl({
     showCompass: true
 }), 'top-left');
 
+// add fullscreen control
+sMap.addControl(new maplibregl.FullscreenControl());
+
 // Add layers after map loads
 sMap.on('load', () => {    
     sMap.addSource('points', {
@@ -97,13 +100,14 @@ hMap.addControl(new maplibregl.AttributionControl({
     compact: props
 }));
 
-
 // Add zoom controls to the map.
 hMap.addControl(new maplibregl.NavigationControl({
     showZoom: true,
     showCompass: true
 }), 'top-left');
 
+// add fullscreen control
+hMap.addControl(new maplibregl.FullscreenControl());
 
 // add layers after map loads
 hMap.on('load', () => {
