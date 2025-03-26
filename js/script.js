@@ -18,7 +18,7 @@ sMap.addControl(new maplibregl.NavigationControl({
 sMap.on('load', () => {
     sMap.addSource('points', {
         'type': 'geojson',
-        'data': '/data/small-scale-points.geojson'
+        'data': 'data/small-scale-points.geojson'
     });
 
     sMap.addLayer({
@@ -83,7 +83,7 @@ hMap.addControl(new maplibregl.NavigationControl({
 hMap.on('load', () => {
     hMap.addSource('points', {
         'type': 'geojson',
-        'data': '/data/small-scale-points.geojson'
+        'data': 'data/small-scale-points.geojson'
     });
 
     hMap.addLayer({
