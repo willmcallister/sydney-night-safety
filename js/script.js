@@ -120,6 +120,10 @@ hMap.on('load', () => {
         'id': 'unsafe-heatmap',
         'type': 'heatmap',
         'source': 'points',
+        'layout': {
+            // Make the layer visible by default.
+            'visibility': 'visible'
+        },
         'paint': {
             'heatmap-radius': [
                 "interpolate", ["exponential", 2], ["zoom"],
@@ -152,6 +156,10 @@ hMap.on('load', () => {
         'id': 'safe-heatmap',
         'type': 'heatmap',
         'source': 'points',
+        'layout': {
+            // Make the layer visible by default.
+            'visibility': 'visible'
+        },
         'paint': {
             'heatmap-radius': [
                 "interpolate", ["exponential", 2], ["zoom"],
@@ -180,3 +188,37 @@ hMap.on('load', () => {
         'filter': ['==', 'Type', 'Safe']
     });
 });
+
+hMap.on('idle', () => {
+    const safeHeatmapBtn = document.querySelector('#safe-heatmap-toggle');
+    const unsafeHeatmapBtn = document.querySelector('#unsafe-heatmap-toggle');
+
+    const toggleableIds = ['safe-heatmap', 'unsafe-heatmap'];
+
+    for (const id of toggleableIds) {
+        button = document.querySelector(`#${id}-toggle`)
+
+        button.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            layerID = (this.id).substring(0, (this.id).length - 7);
+
+            this.classList.toggle("active");
+
+            const visibility = hMap.getLayoutProperty(
+                layerID,
+                'visibility'
+            );
+
+            // Toggle layer visibility by changing the layout object's visibility property.
+            if (visibility === 'visible') {
+                hMap.setLayoutProperty(layerID, 'visibility', 'none');
+            } 
+            else {
+                hMap.setLayoutProperty(layerID, 'visibility', 'visible');
+            }
+        }
+    }
+});
+

@@ -81,3 +81,37 @@ html, body {
     text-decoration-style: wavy;
     text-decoration-color: #D12F49;
 }
+
+#layer-selectors {
+    display: inline-block;
+    white-space: normal;
+}
+
+.layer-button {
+    font-weight: bold;
+    border: 0;
+    padding: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#safe-heatmap-toggle{
+    background-color: #C6DCE8;
+    color: #336FAB;
+}
+
+#safe-heatmap-toggle.active {
+    background-color: #9FC7DD;
+    color: #316090
+}
+
+#unsafe-heatmap-toggle{
+    background-color: #F4DBCE;
+    color: #D12F49;
+}
+
+#unsafe-heatmap-toggle.active {
+    background-color: #F5AE97;
+    color: #B44549
+}
