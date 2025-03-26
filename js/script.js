@@ -11,10 +11,11 @@ console.log("Compact is " + props)
 
 // Sticker Map
 const sMap = new maplibregl.Map({
-    style: 'https://tiles.openfreemap.org/styles/positron',
+    //style: 'https://tiles.openfreemap.org/styles/positron',
+    style: 'data/minimal-style.json',
     center: [151.1868, -33.8883],
     zoom: 12,
-    minZoom: 9,
+    minZoom: 11,
     maxZoom: 18,
     container: 'sticker-map',
     attributionControl: false,
@@ -85,10 +86,11 @@ sMap.on('load', () => {
 
 // Heatmap Map
 const hMap = new maplibregl.Map({
-    style: 'https://tiles.openfreemap.org/styles/positron',
+    //style: 'https://tiles.openfreemap.org/styles/positron',
+    style: 'data/minimal-style.json',
     center: [151.1868, -33.8883],
     zoom: 12,
-    minZoom: 9,
+    minZoom: 11,
     maxZoom: 18,
     container: 'heat-map',
     attributionControl: false,
