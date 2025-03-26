@@ -1,0 +1,75 @@
+@font-face {
+    font-family: 'Satoshi-Variable';
+    src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+        url('../fonts/Satoshi-Variable.woff') format('woff'),
+        url('../fonts/Satoshi-Variable.ttf') format('truetype');
+    font-weight: 300 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Satoshi-Variable';
+}
+
+#header {
+    margin: 20px 15vw 20px;
+}
+
+.body-text {
+    width: 70vw;
+    margin: 10px 15vw 10px;
+}
+
+#safe-text {
+    color: #336FAB;
+    font-weight: bold;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #336FAB;
+}
+
+#unsafe-text {
+    color: #D12F49;
+    font-weight: bold;
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #D12F49;
+}
+
+.map {
+    margin: 20px 15vw 20px;
+    border-radius: 10px;
+    width: 70vw;
+    height: 90dvh;
+}
+
+
+.distance-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+}
+
+.distance-container > * {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 11px;
+    line-height: 18px;
+    display: block;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+#footer {
+    text-align: right;
+    margin-top: 20px;
+    padding: 10px 15vw 10px;
+    color: white;
+    background-color: #336FAB;
+    font-size: 0.8em;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sydney Night Safety</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+
+</head>
+<body>
+    
+    <h1 id="header">Sydney Night Safety</h1>
+
+    <div class="body-text">
+        The data featured on the map below was created from a mapping activity
+         at our pop-ups on the 21st of March; one in the afternoon at <b>Catigal
+         Green</b> and the other in the evening outside of <b>Newtown Station</b>.
+        <br><br>
+        We asked people to place a sticker on a paper map to mark areas they feel
+         <span id="safe-text">safe</span> or <span id="unsafe-text">unsafe</span> at night. We 
+         had <b>96</b> responses, here they are, mapped.
+    </div>
+
+    <div id='sticker-map' class="map"></div>
+
+    <div class="body-text">
+        Now, taking this data and creating a <b>heatmap</b> results in the following map.
+    </div>
+
+    <div id='heat-map' class="map"></div>
+
+    <div id="distance" class="distance-container"></div>
+
+    <div id="footer">Maps by Will McAllister</div>
+
+
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
