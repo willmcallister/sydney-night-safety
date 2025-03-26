@@ -1,3 +1,14 @@
+let props;
+
+if (window.innerWidth < 600) {
+    props = false;
+}
+else {
+    props = true;
+}
+
+console.log("Compact is " + props)
+
 // Sticker Map
 const sMap = new maplibregl.Map({
     style: 'https://tiles.openfreemap.org/styles/positron',
@@ -6,7 +17,14 @@ const sMap = new maplibregl.Map({
     minZoom: 9,
     maxZoom: 18,
     container: 'sticker-map',
-  })
+    attributionControl: false,
+    cooperativeGestures: !props
+});
+
+// add attribution
+sMap.addControl(new maplibregl.AttributionControl({
+    compact: props
+}));
 
 // Add zoom controls to the map.
 sMap.addControl(new maplibregl.NavigationControl({
@@ -15,7 +33,7 @@ sMap.addControl(new maplibregl.NavigationControl({
 }), 'top-left');
 
 // Add layers after map loads
-sMap.on('load', () => {
+sMap.on('load', () => {    
     sMap.addSource('points', {
         'type': 'geojson',
         'data': 'data/small-scale-points.geojson'
@@ -70,7 +88,15 @@ const hMap = new maplibregl.Map({
     minZoom: 9,
     maxZoom: 18,
     container: 'heat-map',
-  })
+    attributionControl: false,
+    cooperativeGestures: !props
+});
+
+// add attribution
+hMap.addControl(new maplibregl.AttributionControl({
+    compact: props
+}));
+
 
 // Add zoom controls to the map.
 hMap.addControl(new maplibregl.NavigationControl({
