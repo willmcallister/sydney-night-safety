@@ -1,17 +1,13 @@
 let props;
 
-if (window.innerWidth < 600) {
+// Check for window width on launch -- used for mobile dependent map options
+if (window.innerWidth < 600)
     props = false;
-}
-else {
+else
     props = true;
-}
-
-console.log("Compact is " + props)
 
 // Sticker Map
 const sMap = new maplibregl.Map({
-    //style: 'https://tiles.openfreemap.org/styles/positron',
     style: 'data/minimal-style.json',
     center: [151.1868, -33.8883],
     zoom: 12,
@@ -22,7 +18,8 @@ const sMap = new maplibregl.Map({
     cooperativeGestures: !props
 });
 
-// add attribution
+// add attribution, using non-compact on mobile -- confusing, but compact
+// does not scale well on mobile, better to use full attribution bar
 sMap.addControl(new maplibregl.AttributionControl({
     compact: props
 }));
@@ -36,13 +33,20 @@ sMap.addControl(new maplibregl.NavigationControl({
 // add fullscreen control
 sMap.addControl(new maplibregl.FullscreenControl());
 
-// Add layers after map loads
-sMap.on('load', () => {    
+// Add data after map loads
+sMap.on('load', async() => {    
     sMap.addSource('points', {
         'type': 'geojson',
         'data': 'data/small-scale-points.geojson'
     });
 
+    // fit map bounds to points layer, with padding
+    const pointsSource = sMap.getSource('points');
+    const pointsBounds = await pointsSource.getBounds();
+    sMap.fitBounds(pointsBounds, { padding: 20 });
+
+    // Add layers for unsafe and safe points, representing them as 200 meter
+    // diameters and visually maintaining the same size across zooms
     sMap.addLayer({
         'id': 'unsafe-points',
         'type': 'circle',
@@ -111,19 +115,25 @@ hMap.addControl(new maplibregl.NavigationControl({
 // add fullscreen control
 hMap.addControl(new maplibregl.FullscreenControl());
 
-// add layers after map loads
-hMap.on('load', () => {
+// add data after map loads
+hMap.on('load', async() => {
     hMap.addSource('points', {
         'type': 'geojson',
         'data': 'data/small-scale-points.geojson'
     });
 
+    // fit map bounds to points layer, with padding
+    const pointsSource = hMap.getSource('points');
+    const pointsBounds = await pointsSource.getBounds();
+    hMap.fitBounds(pointsBounds, { padding: 20 });
+
+    // add layers for safe and unsafe heatmap. Interpolate size to use a
+    // ~ 750m diameter for heatmap creation
     hMap.addLayer({
         'id': 'unsafe-heatmap',
         'type': 'heatmap',
         'source': 'points',
         'layout': {
-            // Make the layer visible by default.
             'visibility': 'visible'
         },
         'paint': {
@@ -197,23 +207,23 @@ hMap.on('idle', () => {
 
     const toggleableIds = ['safe-heatmap', 'unsafe-heatmap'];
 
-    for (const id of toggleableIds) {
-        button = document.querySelector(`#${id}-toggle`)
+    for (const layerID of toggleableIds) {
+        const button = document.querySelector(`#${layerID}-toggle`)
 
         button.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
-            layerID = (this.id).substring(0, (this.id).length - 7);
 
+            // change button state (for css)
             this.classList.toggle("active");
 
+            // check current layer visibility
             const visibility = hMap.getLayoutProperty(
                 layerID,
                 'visibility'
             );
 
-            // Toggle layer visibility by changing the layout object's visibility property.
+            // Toggle layer visibility by changing the layer's visibility layout property
             if (visibility === 'visible') {
                 hMap.setLayoutProperty(layerID, 'visibility', 'none');
             } 
@@ -223,4 +233,3 @@ hMap.on('idle', () => {
         }
     }
 });
-
